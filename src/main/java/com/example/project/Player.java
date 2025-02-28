@@ -48,8 +48,14 @@ public class Player
 
     public ArrayList<Integer> findRankingFrequency()
     {
-        return new ArrayList<>(); 
-        // use find lastindexOf
+        ArrayList<Integer> frequency = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+        for (Card card : allCards)
+        {
+            int index = Utility.getRankValue(card.getRank()) - 2;
+            frequency.set(index, frequency.get(index) + 1);
+        }
+
+        return frequency;
     }
 
     public ArrayList<Integer> findSuitFrequency()
@@ -80,10 +86,5 @@ public class Player
     public String toString()
     {
         return hand.toString();
-    }
-
-    public static void main(String[] args)
-    {
-
     }
 }
