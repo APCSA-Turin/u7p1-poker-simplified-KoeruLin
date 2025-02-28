@@ -29,7 +29,7 @@ public class TestPlayer {
         player.playHand(communityCards);
         
         // Now the player should have 5 cards: 2 player cards + 3 community cards
-        player.sortAllCards();
+        player.sortCards();
         assertEquals("3 of ♠", player.getAllCards().get(0).toString());  // First card should be 3 of ♠
         assertEquals("A of ♦", player.getAllCards().get(4).toString());  // Last card should be A of ♦
     }
@@ -169,7 +169,8 @@ public class TestPlayer {
         communityCards.add(new Card("9", "♣"));
         communityCards.add(new Card("Q", "♥"));
         communityCards.add(new Card("8", "♠"));
-        
+
+        player.playHand(communityCards);
         String handResult = player.playHand(communityCards);
         
         assertEquals("Straight", handResult);

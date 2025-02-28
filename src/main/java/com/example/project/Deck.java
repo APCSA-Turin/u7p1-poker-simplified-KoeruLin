@@ -36,7 +36,7 @@ public class Deck
 
     public Card drawCard()
     {
-        return (isEmpty()) ? null : cards.removeFirst();
+        return (isEmpty()) ? null : cards.remove(0);
     }
 
     public  boolean isEmpty()

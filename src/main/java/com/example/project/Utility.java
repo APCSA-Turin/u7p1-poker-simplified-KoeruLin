@@ -1,7 +1,8 @@
 package com.example.project;
 import java.util.ArrayList;
 
-public class Utility{
+public class Utility
+{
     private static String[] hands = 
     {
         "Royal Flush",
@@ -12,11 +13,11 @@ public class Utility{
         "Straight",
         "Three of a Kind",
         "Two Pair",
-        "Pair",
+        "A Pair",
         "High Card"
     };
 
-    private static String[] suits  = {"♠","♥","♣", "♦"};
+    private static String[] suits  = {"♠", "♥", "♣", "♦"};
     private static String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
 
     public static String[] getRanks()
