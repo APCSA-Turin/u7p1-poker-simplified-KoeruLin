@@ -2,7 +2,8 @@ package com.example.project;
 import java.util.ArrayList;
 
 public class Utility{
-    private static String[] hands = {
+    private static String[] hands = 
+    {
         "Royal Flush",
         "Straight Flush",
         "Four of a Kind",
@@ -21,8 +22,10 @@ public class Utility{
     public static String[] getRanks(){return ranks;}
     public static String[] getSuits(){return suits;}
 
-    public static int getRankValue(String rank){
-        switch(rank){
+    public static int getRankValue(String rank)
+    {
+        switch(rank)
+        {
             case "2": return 2;
             case "3": return 3;
             case "4": return 4;
@@ -40,8 +43,10 @@ public class Utility{
         return -1;
     }
 
-    public static int getHandRanking(String result){
-        switch(result){
+    public static int getHandRanking(String result)
+    {
+        switch(result)
+        {
             case "Royal Flush": return 11;
             case "Straight Flush": return 10;
             case "Four of a Kind": return 9;
@@ -56,6 +61,4 @@ public class Utility{
         }
         return -1;
     }
-
-
 }
