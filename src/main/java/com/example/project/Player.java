@@ -106,22 +106,26 @@ public class Player
                 }
 
                 return result;
-
             }
         });
+
+        if (hand.get(0).getRank().compareTo(hand.get(1).getRank()) > 0)
+        {
+            Card swap = hand.set(0, hand.get(1));
+            hand.set(1, swap);
+        }
     } 
 
     public ArrayList<Integer> findRankingFrequency()
     {
-        ArrayList<Integer> frequency = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-        System.out.println(allCards.size());
-        for (Card card : allCards)
+        ArrayList<Integer> frequencyRank = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+        for (int i = 0; i < allCards.size(); i++)
         {
-            int index = Utility.getRankValue(card.getRank()) - 2;
-            frequency.set(index, frequency.get(index) + 1);
+            int index = Utility.getRankValue(allCards.get(i).getRank()) - 2;
+            frequencyRank.set(index, frequencyRank.get(index) + 1);
         }
 
-        return frequency;
+        return frequencyRank;
     }
 
     public ArrayList<Integer> findSuitFrequency()
@@ -152,21 +156,5 @@ public class Player
     public String toString()
     {
         return hand.toString();
-    }
-
-    public static void main(String[] args)
-    {
-        Player player = new Player();
-        player.addCard(new Card("10", "♠"));
-        player.addCard(new Card("J", "♦"));
-
-        ArrayList<Card> communityCards = new ArrayList<>();
-        communityCards.add(new Card("9", "♣"));
-        communityCards.add(new Card("Q", "♥"));
-        communityCards.add(new Card("8", "♠"));
-        
-        String handResult = player.playHand(communityCards);
-
-        System.out.println(handResult);
     }
 }
