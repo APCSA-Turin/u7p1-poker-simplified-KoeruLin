@@ -170,7 +170,6 @@ public class TestPlayer {
         communityCards.add(new Card("Q", "♥"));
         communityCards.add(new Card("8", "♠"));
 
-        player.playHand(communityCards);
         String handResult = player.playHand(communityCards);
         
         assertEquals("Straight", handResult);
