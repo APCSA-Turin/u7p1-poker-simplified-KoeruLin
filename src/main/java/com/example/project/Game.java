@@ -1,6 +1,7 @@
 package com.example.project;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 
 public class Game
@@ -43,6 +44,118 @@ public class Game
 
     public static void play()
     { //simulate card playing
-    
+        Scanner scanner = new Scanner(System.in);
+        boolean play = true;
+        int player1Win = 0;
+        int player2Win = 0;
+        int tie = 0;
+
+        while (play) 
+        {
+            Deck deck = new Deck(); 
+            Player player1 = new Player(); 
+            Player player2 = new Player();
+            ArrayList<Card> communityCards = new ArrayList<>();
+            communityCards.clear();
+
+            System.out.println("Welcome to Poker 0.5!");
+            System.out.println("Shuffling the deck...");
+            System.out.println("");
+
+            try 
+            {
+                Thread.sleep(2500);
+            } 
+            catch (InterruptedException e) 
+            {
+                e.printStackTrace();
+            }
+           
+            for (int i = 0; i < 2; i++) 
+            {
+                player1.addCard(deck.drawCard());
+                player2.addCard(deck.drawCard());
+            }
+            
+            for (int i = 0; i < 5; i++) 
+            {
+                communityCards.add(deck.drawCard());
+            }
+
+            
+            System.out.println("Player 1's Hand: " + player1.getHand());
+            System.out.println("Player 2's Hand: " + player2.getHand());
+            System.out.println("Community Cards: " + communityCards);
+
+            try 
+            {
+                Thread.sleep(2000);
+            } 
+            catch (InterruptedException e) 
+            {
+                e.printStackTrace();
+            }
+           
+            String p1Hand = player1.playHand(communityCards);
+            String p2Hand = player2.playHand(communityCards);
+
+            System.out.println("");
+            System.out.println("Player 1's Best Hand: " + p1Hand + ", " + player1.getHand().get(1));
+            System.out.println("Player 2's Best Hand: " + p2Hand + ", " + player2.getHand().get(1));
+            System.out.println("");
+
+            try 
+            {
+                Thread.sleep(1000);
+            } 
+            catch (InterruptedException e) 
+            {
+                e.printStackTrace();
+            }
+           
+            String result = determineWinner(player1, player2, p1Hand, p2Hand, communityCards);
+            System.out.println(result);
+            System.out.println("");
+            
+            if (result.equals("Player 1 wins!"))
+            {
+                player1Win++;
+            }
+            else if (result.equals("Player 2 wins!"))
+            {
+                player2Win++;
+            }
+            else
+            {
+                tie++;
+            }
+
+            try 
+            {
+                Thread.sleep(1500);
+            } 
+            catch (InterruptedException e) 
+            {
+                e.printStackTrace();
+            }
+
+            System.out.print("Do you want to play again? (yes/no): ");
+            String input = scanner.nextLine().toLowerCase();
+
+            if (!input.equals("yes")) 
+            {
+                play = false;
+                System.out.println("Player 1 Wins: " + player1Win);
+                System.out.println("Player 2 Wins: " + player2Win);
+                System.out.println("Tie Count: " + tie);
+            }
+        }
+
+        scanner.close();
+    }
+
+    public static void main(String[] args)
+    {
+        Game.play();
     }
 }
