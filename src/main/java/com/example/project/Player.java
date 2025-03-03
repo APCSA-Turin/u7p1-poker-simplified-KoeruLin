@@ -31,16 +31,19 @@ public class Player
 
     public String playHand(ArrayList<Card> communityCards)
     {
-        ArrayList<Integer> suits = findSuitFrequency();
-        ArrayList<Integer> ranks = findRankingFrequency();
+        allCards.clear();
         allCards.addAll(hand);
         allCards.addAll(communityCards);
+        // clears allCards of any extra cards and adds both hand and communityCards to it
+        ArrayList<Integer> suits = findSuitFrequency();
+        ArrayList<Integer> ranks = findRankingFrequency();
         boolean flush = suits.contains(5) || suits.contains(6) || suits.contains(7);
         boolean straight = false;
         boolean royal = false;
         int consecutiveNum = 0;
 
         sortCards();
+        // sorts allCards
 
         for (int i = 0; i < ranks.size(); i++)
         {
@@ -51,17 +54,20 @@ public class Player
                 if (consecutiveNum >= 5)
                 {
                     straight = true;
-
+                    // checks for a straight
                     if (i == 12)
                     {
                         royal = true;
                         break;
+
+                    // checks if the final card in a straight is a ace 
                     }
                 }
             }
             else
             {
                 consecutiveNum = 0;
+                //resets counter
             }
         }
 
@@ -108,12 +114,13 @@ public class Player
                 return result;
             }
         });
-
+        //sorts allCards by rank and suit
         if (hand.get(0).getRank().compareTo(hand.get(1).getRank()) > 0)
         {
             Card swap = hand.set(0, hand.get(1));
             hand.set(1, swap);
         }
+        //sorts hand by comparing rank
     } 
 
     public ArrayList<Integer> findRankingFrequency()
@@ -124,7 +131,6 @@ public class Player
             int index = Utility.getRankValue(allCards.get(i).getRank()) - 2;
             frequencyRank.set(index, frequencyRank.get(index) + 1);
         }
-
         return frequencyRank;
     }
 

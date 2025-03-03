@@ -21,8 +21,6 @@ public class TestGame {
         communityCards.add(new Card("8", "♠"));
         communityCards.add(new Card("A", "♣"));
         
-        player1.playHand(communityCards);
-        player2.playHand(communityCards);
         String p1Result = player1.playHand(communityCards);
         String p2Result = player2.playHand(communityCards);
         
@@ -47,8 +45,6 @@ public class TestGame {
         communityCards.add(new Card("J", "♣"));
         communityCards.add(new Card("A", "♠"));
         
-        player1.playHand(communityCards);
-        player2.playHand(communityCards);
         String p1Result = player1.playHand(communityCards);
         String p2Result = player2.playHand(communityCards);
         
@@ -73,8 +69,6 @@ public class TestGame {
         communityCards.add(new Card("8", "♠"));
         communityCards.add(new Card("A", "♣"));
         
-        player1.playHand(communityCards);
-        player2.playHand(communityCards);
         String p1Result = player1.playHand(communityCards);
         String p2Result = player2.playHand(communityCards);
         
@@ -101,8 +95,6 @@ public class TestGame {
         communityCards.add(new Card("8", "♠"));
         communityCards.add(new Card("9", "♥"));
         
-        player1.playHand(communityCards);
-        player2.playHand(communityCards);
         String p1Result = player1.playHand(communityCards);
         String p2Result = player2.playHand(communityCards);
         
@@ -127,8 +119,6 @@ public class TestGame {
         communityCards.add(new Card("7", "♥"));
         communityCards.add(new Card("7", "♠"));
         
-        player1.playHand(communityCards);
-        player2.playHand(communityCards);
         String p1Result = player1.playHand(communityCards);
         String p2Result = player2.playHand(communityCards);
         
@@ -153,8 +143,6 @@ public class TestGame {
         communityCards.add(new Card("A", "♥"));
         communityCards.add(new Card("A", "♠"));
     
-        player1.playHand(communityCards);
-        player2.playHand(communityCards);
         String p1Result = player1.playHand(communityCards);
         String p2Result = player2.playHand(communityCards);
         
@@ -181,8 +169,6 @@ public class TestGame {
         communityCards.add(new Card("7", "♠"));
         communityCards.add(new Card("7", "♣"));
         
-        player1.playHand(communityCards);
-        player2.playHand(communityCards);
         String p1Result = player1.playHand(communityCards);
         String p2Result = player2.playHand(communityCards);
         
@@ -207,8 +193,6 @@ public class TestGame {
         communityCards.add(new Card("K", "♥"));
         communityCards.add(new Card("9", "♠"));
         
-        player1.playHand(communityCards);
-        player2.playHand(communityCards);
         String p1Result = player1.playHand(communityCards);
         String p2Result = player2.playHand(communityCards);
         
@@ -235,8 +219,6 @@ public class TestGame {
         communityCards.add(new Card("10", "♥"));
         communityCards.add(new Card("J", "♠"));
         
-        player1.playHand(communityCards);
-        player2.playHand(communityCards);
         String p1Result = player1.playHand(communityCards);
         String p2Result = player2.playHand(communityCards);
         
@@ -263,8 +245,6 @@ public class TestGame {
         communityCards.add(new Card("8", "♠"));
         communityCards.add(new Card("9", "♠"));
     
-        player1.playHand(communityCards);
-        player2.playHand(communityCards);
         String p1Result = player1.playHand(communityCards);
         String p2Result = player2.playHand(communityCards);
         
@@ -291,8 +271,6 @@ public class TestGame {
         communityCards.add(new Card("4", "♠"));
         communityCards.add(new Card("Q", "♠"));
         
-        player1.playHand(communityCards);
-        player2.playHand(communityCards);
         // Player results after playing the hand
         String p1Result = player1.playHand(communityCards);
         String p2Result = player2.playHand(communityCards);
@@ -300,6 +278,35 @@ public class TestGame {
         // Determine the winner
         String winner = Game.determineWinner(player1, player2, p1Result, p2Result, communityCards);
         
+        // Player 1 should win 
+        assertEquals("Player 2 wins!", winner);
+    }   
+
+           @Test // A pair in the community cards, find the highest card. 
+    public void testPairDrawHighCard_Player2Wins() {
+        Player player1 = new Player();
+        Player player2 = new Player();
+
+        player1.addCard(new Card("7", "♠"));
+        player1.addCard(new Card("10", "♠"));
+
+        player2.addCard(new Card("A", "♠"));
+        player2.addCard(new Card("3", "♠"));
+
+
+        // Community cards that could help form the flush
+        ArrayList<Card> communityCards = new ArrayList<>();
+        communityCards.add(new Card("J", "♠")); // Player 1 completes the flush with this card
+        communityCards.add(new Card("J", "♥"));
+        communityCards.add(new Card("Q", "♠"));
+
+        // Player results after playing the hand
+        String p1Result = player1.playHand(communityCards);
+        String p2Result = player2.playHand(communityCards);
+
+        // Determine the winner
+        String winner = Game.determineWinner(player1, player2, p1Result, p2Result, communityCards);
+
         // Player 1 should win 
         assertEquals("Player 2 wins!", winner);
     }   

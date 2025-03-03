@@ -18,7 +18,7 @@ public class Game
         {
             return "Player 2 wins!";
         } 
-
+        //compares player 1 and 2 best hand 
         ArrayList<Card> p1Cards = p1.getHand();
         ArrayList<Card> p2Cards = p2.getHand();
 
@@ -27,7 +27,7 @@ public class Game
 
         int p1Highest = Utility.getRankValue(p1HighestCard.getRank());
         int p2Highest = Utility.getRankValue(p2HighestCard.getRank());
-
+        // if the best hand is equal then we compare the highest card in player hand
         if (p1Highest > p2Highest)
         {
             return "Player 1 wins!";
@@ -38,6 +38,7 @@ public class Game
         }
 
         return "Tie!";
+        // if both are equal then return tie
     }
 
     public static void play()
