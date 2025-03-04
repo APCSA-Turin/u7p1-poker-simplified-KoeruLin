@@ -40,6 +40,7 @@ public class Player
         boolean flush = suits.contains(5) || suits.contains(6) || suits.contains(7);
         boolean straight = false;
         boolean royal = false;
+        boolean found = false;
         int consecutiveNum = 0;
 
         sortCards();
@@ -71,13 +72,22 @@ public class Player
             }
         }
 
+        for (Card card : communityCards) 
+        { 
+            if (card.equals(allCards.get(allCards.size() - 1))) 
+            {
+                found = true;
+                break;
+            }
+        }
+
         if (royal && flush) 
             return "Royal Flush";
         if (flush && straight) 
             return "Straight Flush";
         if (ranks.contains(4)) 
             return "Four of a Kind";
-        if (ranks.contains(3) && ranks.contains(2)) 
+        if (containTarget(3) && containTarget(2)) 
             return "Full House";
         if (ranks.contains(3)) 
             return "Three of a Kind";
@@ -85,35 +95,36 @@ public class Player
             return "Flush";
         if (straight)
             return "Straight";
-        if (ranks.contains(3))
+        if (containTarget(3))
             return "Three of a Kind";
         if (Collections.frequency(ranks, 2) >= 2)
             return "Two Pair";
-        if (ranks.contains(2))
+        if (containTarget(2))
             return "A Pair";
-        if (communityCards.contains(allCards.get(allCards.size() - 1)))
+        if (found)
             return "Nothing";
         return "High Card";
     }
 
     public void sortCards()
     {
-        Collections.sort(allCards, new Comparator<Card>() 
+        //sort cards via selective sort
+        for(int i = 0; i < allCards.size() - 1; i++)
         {
-            @Override
-            public int compare(Card one, Card two) 
+            int min = i;
+            for(int j = i + 1; j < allCards.size(); j++)
             {
-                List<String> transition = Arrays.asList(ranks);
-                int result = Integer.compare(transition.indexOf(one.getRank()), transition.indexOf(two.getRank()));
-
-                if (result == 0)
+                // compare the rank values of the cards and find the minimum 
+                if(Utility.getRankValue(allCards.get(min).getRank()) > Utility.getRankValue(allCards.get(j).getRank()))
                 {
-                    return Integer.compare(transition.indexOf(one.getSuit()), transition.indexOf(two.getSuit()));
+                    min = j; 
                 }
-
-                return result;
             }
-        });
+               
+            Card temp = allCards.get(i);
+            allCards.set(i, allCards.get(min));
+            allCards.set(min, temp);
+        }
         //sorts allCards by rank and suit
         if (hand.get(0).getRank().compareTo(hand.get(1).getRank()) > 0)
         {
@@ -162,5 +173,19 @@ public class Player
     public String toString()
     {
         return hand.toString();
+    }
+
+    private boolean containTarget(int target)
+    {
+        ArrayList<Integer> nums = findRankingFrequency();
+        for (int num : nums)
+        {
+            if (num == target)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
