@@ -85,11 +85,11 @@ public class Player
             return "Royal Flush";
         if (flush && straight) 
             return "Straight Flush";
-        if (ranks.contains(4)) 
+        if (containTarget(4)) 
             return "Four of a Kind";
         if (containTarget(3) && containTarget(2)) 
             return "Full House";
-        if (ranks.contains(3)) 
+        if (containTarget(3)) 
             return "Three of a Kind";
         if (flush)
             return "Flush";
